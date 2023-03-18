@@ -15,13 +15,9 @@ namespace OnlineBanking.Models
         public string Password { get; set; } = null!;
         [Display(Name = "Role")]
         public string RoleType { get; set; }
-        //[ForeignKey("RoleId")]
-        //public virtual Role role { get; set; }
 
         [Display(Name = "Customer")]
         public int CustomerId { get; set; }
-        //[ForeignKey("CustomerId")]
-        //public virtual Customer Customer { get; set; }
         public bool IsActive { get; set; }
     }
 }

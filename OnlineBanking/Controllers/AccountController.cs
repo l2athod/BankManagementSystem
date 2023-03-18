@@ -31,6 +31,7 @@ namespace OnlineBanking.Controllers
         {
             if(String.IsNullOrEmpty(login.UserName) || String.IsNullOrEmpty(login.Password))
             {
+                ModelState.AddModelError(String.Empty, "Please enter Username and Password");
                 return View();
             }
             Dictionary<string, string> userDetails = _accountService.Login(login);
@@ -52,16 +53,6 @@ namespace OnlineBanking.Controllers
         [HttpGet]  
         public IActionResult Logout()
         {
-            //if (HttpContext.Request.Cookies.Count> 0) 
-            //{
-            //    var siteCookies = HttpContext.Request.Cookies.Where(c => c.Key.Contains("UserLoginCookie"));
-            //    foreach (var cookie in siteCookies)
-            //    {
-            //        Response.Cookies.Delete(cookie.Key);
-            //    }
-            //}
-            //await HttpContext.SignOutAsync("CookieAuthentication");  
-
             HttpContext.Session.Remove("UserName");
             HttpContext.Session.Clear();
             return RedirectToAction("Login","Account");  

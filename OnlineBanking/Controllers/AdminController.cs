@@ -62,6 +62,8 @@ namespace OnlineBanking.Controllers
             Customer customer = adminService.GetCustomerById(id);
             return View(customer);
         }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteCustomer(Customer customer)

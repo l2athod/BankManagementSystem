@@ -1,0 +1,104 @@
+﻿@model OnlineBanking.Models.AccountTransaction
+@using System.Collections.Generic
+@using System.Text.Json
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+<h2>Create Transaction</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Customer" asp-action="CreateTransaction" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="transactionModel.CustomerId">
+
+
+
+
+
+            <div class="form-group">
+                <label asp-for="transactionModel.FromAccountNumber" class="control-label"></label>
+                <select id="balancedetail" asp-for="transactionModel.FromAccountNumber" asp-items="@Model.accounts" class="form-select form-select-lg">
+                    <option value="defaultoption" selected disabled>  --select accountnumber-- </option>
+                </select>
+                <span asp-validation-for="transactionModel.FromAccountNumber" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label"> Account Balance</label>
+                <input type="text" id="CurrentBalance" name="CurrentBalance" value="" readonly="readonly" class="form-control">
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="transactionModel.ToAccountNumber" class="control-label"></label>
+                <input type="text" asp-for="transactionModel.ToAccountNumber" class="form-control" required />
+                <span asp-validation-for="transactionModel.ToAccountNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="transactionModel.TransactionType" class="control-label"></label>
+                <input type="text" asp-for="transactionModel.TransactionType" class="form-control" required />
+                <span asp-validation-for="transactionModel.TransactionType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="transactionModel.TransferAmount" class="control-label"></label>
+                <input asp-for="transactionModel.TransferAmount" class="form-control" required />
+                <span asp-validation-for="transactionModel.TransferAmount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="transactionModel.Description" class="control-label"></label>
+                <input type="text" asp-for="transactionModel.Description" class="form-control" required />
+                <span asp-validation-for="transactionModel.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Transfer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        console.log("hello !!!");
+
+
+        $(document).ready(function () {
+
+
+            $("#balancedetail").on("change", function () {
+                var selected = $("#balancedetail").val();
+                //$('#CurrentBalance').show();
+                var dict = {};
+                @{
+                    var json = JsonSerializer.Serialize(Model.AccountBalance);
+                }
+               var dict = JSON.parse('@Html.Raw(json)');
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Customer/AccountBalanceInfo",
+                    data: { model: dict,  selectedOption: selected },
+                    dataType: "json",
+                    success: function(data){
+                        $("#CurrentBalance").val(data);
+                    }
+                })
+            
+            });
+        });
+
+        
+    </script>
+}

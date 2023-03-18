@@ -1,0 +1,53 @@
+@model IEnumerable<OnlineBanking.Models.TransactionModel>
+
+@{
+    ViewData["Title"] = "CustomerTransactionsById";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>CustomerTransactions</h2>
+<p>
+    <a asp-controller="Customer" asp-action="CreateTransaction" class="btn btn-primary">Create Transaction</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Benificary AccountNumber
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransferAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfTransaction)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromAccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransferAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfTransaction)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,62 @@
+﻿@model List<Customer>
+
+@{
+    ViewData["Title"] = "CustomerDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="container">
+  <div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <h2>Customer List</h2>
+        </div>
+        <div class="col-sm-4 text-end">
+            <a asp-controller="Admin" asp-action="CreateUpdateCustomer" class="btn btn-success" data-toggle="modal"><span>Add New Customer</span></a>
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+            <th>CustomerName</th>
+            <th>DateOfBirth</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>@item.FirstName @item.LastName</td>
+                <td>@item.DateOfBirth</td>
+                <td>@item.Address</td>
+                <td>@item.City</td>
+                <td>@item.PhoneNo</td>
+                <td>@item.Email</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="CreateUpdateCustomer" asp-route-id="@item.CustomerId" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a asp-controller="Admin" asp-action="DeleteCustomer" asp-route-id="@item.CustomerId" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                </td>
+            </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Activate tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    </script>
+}

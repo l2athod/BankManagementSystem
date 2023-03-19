@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineBanking.Models
 {
@@ -7,10 +8,7 @@ namespace OnlineBanking.Models
     {
         [Key]
         public long TransactionId { get; set; }
-
-        [RegularExpression(@"^(credit|debit)$", ErrorMessage = "TransactionType must be either 'credit' or 'debit'.")]
-        [StringLength(6, MinimumLength = 6, ErrorMessage = "TransactionType must be either 'credit' or 'debit'.")]
-        public string TransactionType { get; set; }
+        public string TransactionType { get; set; } = "debit";
         public string Description { get; set; }
 
         [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "TransferAmount must be valid amount.")]

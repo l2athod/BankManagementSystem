@@ -5,52 +5,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="text-center text-lg-start">
-  <!-- Jumbotron -->
-  <div class="container py-4">
-    <div class="row g-0 align-items-center" style="margin-top: 5rem;">
-      <div class="col-lg-6 mb-5 mb-lg-0">
-        <div class="card cascading-right" style="
-            background: hsla(0, 0%, 100%, 0.55);
-            backdrop-filter: blur(30px);
-            ">
-          <div class="card-body p-5 shadow-5 text-center">
-            <h2 class="fw-bold mb-5">Login</h2>
-            <form asp-controller="Account" asp-action="Login">
-              <!-- 2 column grid layout with text inputs for the first and last names -->
-              <div class="row">
-
-                <div class="form-outline mb-4">
-                    <input type="text" asp-for="UserName" class="form-control" />
-                    <label asp-for="UserName" class="form-label"> </label>
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <input type="password" asp-for="Password" class="form-control" />
-                    <label asp-for="Password" class="form-label"> </label>
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-
-                <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4">Login </button>
-
-                </div>
-            </form>
-          </div>
+<div id="errorMessageModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title text-center" style="color: red">Error</h5>
+                <button type="button" onclick="$('#errorMessageModal').modal('hide')">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <p>@ViewBag.ErrorMessage</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="$('#errorMessageModal').modal('hide')">Close</button>
+            </div>
         </div>
-      </div>
-
-        <div class="col-lg-6 mb-5 mb-lg-0">
-        <img src="https://img.freepik.com/free-vector/payment-online-icon-set-design_24640-45103.jpg?w=740&t=st=1679132287~exp=1679132887~hmac=dc595d32786d168fb34b89ba98b3169deec6fff673d0688007ee018ef3302b82" class="w-100 rounded-4 shadow-4" alt=""  style="height: 456px;"/>
-      </div>
     </div>
-  </div>
-  <!-- Jumbotron -->
-</section>
+</div>
+
+<div class="login-card-container">
+    <div class="login-card">
+        <div class="login-card-header">
+            <h1 style="font-size: 300%;">Login</h1>
+        </div>
+        <form class="login-card-form" asp-controller="Account" asp-action="Login">
+            <div class="form-item">
+                <span class="form-item-icon material-symbols-rounded">mail</span>
+                <input type="text" asp-for="UserName" class="form-control" placeholder="Enter Email" autofocus required/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
 
 
+            <div class="form-item">
+                <span class="form-item-icon material-symbols-rounded">lock</span>
+                <input type="password" asp-for="Password" class="form-control" placeholder="Enter Password" required/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+
+            <!-- <div class="form-item-other">
+                <div class="checkbox">
+                    <input type="checkbox" id="rememberMeCheckbox" checked>
+                    <label for="rememberMeCheckbox">Remember me</label>
+                </div>
+                <a href="#">I forgot my password!</a>
+            </div> -->
+
+            <button type="submit">Login </button>
+        </form>
+        <!-- <div class="login-card-footer">
+            Don't have an account? <a href="#">Create a free account.</a>
+        </div> -->
+    </div>
+</div>
 
 @section Scripts {
+    <script>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <text>
+                $(document).ready(function () {
+                    $('#errorMessageModal').modal('show');
+                });
+            </text>
+        }
+    </script>
+ 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

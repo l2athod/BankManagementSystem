@@ -6,7 +6,7 @@ using OnlineBanking.Utilities;
 
 namespace OnlineBanking.Controllers
 {
-    [Authentication]
+    [AuthenticationAdmin]
     public class AdminController : Controller
     {
         private readonly AdminService adminService;
@@ -19,8 +19,10 @@ namespace OnlineBanking.Controllers
         [HttpGet]
         public IActionResult Home(Dictionary<string,string>? UserDetail)
         {
-            if(UserDetail is not null)
+            if(UserDetail.ContainsKey("LoggerId")) {
                 _adminId = Convert.ToInt64(UserDetail["LoggerId"]);
+                HttpContext.Response.Redirect("/Admin/Home");
+            }
             return View();
         }
         [HttpGet]

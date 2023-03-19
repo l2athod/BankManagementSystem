@@ -56,13 +56,12 @@ namespace OnlineBanking.DataAccessLayer
                     sqlConnection.Open();
                     SqlCommand sqlCommand = new SqlCommand("sp_CreateTransaction", sqlConnection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@transactionType", transaction.TransactionType);
-                    sqlCommand.Parameters.AddWithValue("@description", transaction.Description);
-                    sqlCommand.Parameters.AddWithValue("@amount", transaction.TransferAmount);
-                    sqlCommand.Parameters.AddWithValue("@dateOfTransaction", transaction.DateOfTransaction.ToString("yyyy-MM-dd hh:mm:ss"));
                     sqlCommand.Parameters.AddWithValue("@customerId", transaction.CustomerId);
                     sqlCommand.Parameters.AddWithValue("@transferAccountNumber", transaction.FromAccountNumber);
                     sqlCommand.Parameters.AddWithValue("@benificiaryAccountNumber", transaction.ToAccountNumber);
+                    sqlCommand.Parameters.AddWithValue("@amount", transaction.TransferAmount);
+                    sqlCommand.Parameters.AddWithValue("@dateOfTransaction", transaction.DateOfTransaction.ToString("yyyy-MM-dd hh:mm:ss"));
+                    sqlCommand.Parameters.AddWithValue("@description", transaction.Description);
 
                     sqlCommand.ExecuteNonQuery();
                     sqlConnection.Close();
@@ -106,5 +105,42 @@ namespace OnlineBanking.DataAccessLayer
             return accountBalance;
         }
 
+        public UserDetail GetCustomerDetailsById(long id)
+        {
+            try
+            {
+                UserDetail user = new UserDetail();
+                using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("sp_GetCustomerDetailsById", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@customerId", id);
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        user.UserId = id;
+                        user.FirstName = (string)reader[0];
+                        user.LastName = (string)reader[1];
+                        user.DateOfBirth = (DateTime)reader[2];
+                        user.Address = (string)reader[3];
+                        user.City = (string)reader[4];
+                        user.State = (string)reader[5];
+                        user.PinCode = (string)reader[6];
+                        user.Gender = (string)reader[7];
+                        user.PhoneNo = (long)reader[8];
+                        user.Email= (string)reader[9];
+
+                        if(user.Gender == "M") { user.Gender = "Male"; }
+                        else { user.Gender = "Female";  }
+                    }
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

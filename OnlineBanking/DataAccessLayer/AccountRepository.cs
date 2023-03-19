@@ -33,7 +33,7 @@ namespace OnlineBanking.DataAccessLayer
                     string roleType = (string)sqlDataReader[1];
                     string loggerId = sqlDataReader[2].ToString();
                     UserDetails["UserId"] = userId.ToString();
-                    UserDetails["Role"] = roleType;
+                    UserDetails["UserRole"] = roleType;
                     UserDetails["LoggerId"] = loggerId;
                 }
             }

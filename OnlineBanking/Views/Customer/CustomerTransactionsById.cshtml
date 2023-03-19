@@ -1,53 +1,44 @@
-@model IEnumerable<OnlineBanking.Models.TransactionModel>
+@model List<OnlineBanking.Models.TransactionModel>
 
 @{
     ViewData["Title"] = "CustomerTransactionsById";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
-<h2>CustomerTransactions</h2>
-<p>
-    <a asp-controller="Customer" asp-action="CreateTransaction" class="btn btn-primary">Create Transaction</a>
-</p>
-<table class="table">
-    <thead>
+
+<h2>Customer Transactions</h2>
+<br >
+
+<h4> <b>Acccount Number: </b>@Model[0].FromAccountNumber </h4>
+<br>
+<br>
+
+<table class="table table-striped">
+    <thead class="table-dark">
         <tr>
-            <th>
-                Benificary AccountNumber
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransactionType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransferAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfTransaction)
-            </th>
+            <th scope="col">TransactionType</th>
+            <th scope="col">Description</th>
+            <th scope="col">TransferAmount</th>
+            <th scope="col">DateOfTransaction</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FromAccountNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransferAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfTransaction)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransferAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfTransaction)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

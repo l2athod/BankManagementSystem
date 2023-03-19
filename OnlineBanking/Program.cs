@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using OnlineBanking.Data;
 using OnlineBanking.DataAccessLayer;
 using OnlineBanking.Services;
 var builder = WebApplication.CreateBuilder(args);
@@ -15,10 +14,7 @@ builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<CustomerRepository>();  
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
-});
+
 builder.Services.AddMvc();
 builder.Services.AddControllersWithViews();
 

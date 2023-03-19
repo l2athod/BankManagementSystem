@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace OnlineBanking.Controllers
 {
-    [Authentication]
+    [AuthenticationCustomer]
     public class CustomerController: Controller
     {
         private readonly CustomerService _customerService;
@@ -27,8 +27,10 @@ namespace OnlineBanking.Controllers
                 _customerId = Convert.ToInt64(UserDetails["LoggerId"]);
                 HttpContext.Response.Redirect("/Customer/Home");
             }
+
             ViewBag.LoggerId = _customerId.ToString();
-            return View();
+            UserDetail user = _customerService.GetCustomerDetailsById(_customerId);
+            return View(user);
         }
 
 
@@ -58,8 +60,7 @@ namespace OnlineBanking.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateTransaction(AccountTransaction accountTransaction,string CurrentBalance, string accountlist)
         {
-            var CustomerAccounts = JsonSerializer.Deserialize<List<SelectListItem>>(accountlist);
-
+            List<SelectListItem> CustomerAccounts = JsonSerializer.Deserialize<List<SelectListItem>>(accountlist);
             if(accountTransaction.transactionModel.TransferAmount > Convert.ToDecimal(CurrentBalance))
             {
                 ModelState.AddModelError("transactionModel.TransferAmount", "Transfer amount is bigger than current balance");
@@ -67,12 +68,13 @@ namespace OnlineBanking.Controllers
             }
             if (ModelState.IsValid)
             {
-                //    bool res = _customerService.CreateTransaction(accountTransaction.accountTransaction);
-                //    if (res)
-                //    {
-                //        return RedirectToAction("CustomerTransactionsById");
-                //    }
+                bool res = _customerService.CreateTransaction(accountTransaction.transactionModel);
+                if (res)
+                {
+                    return RedirectToAction("CustomerTransactionsById");
+                }
             }
+            accountTransaction.accounts = CustomerAccounts;
             return View(accountTransaction);
         }
 

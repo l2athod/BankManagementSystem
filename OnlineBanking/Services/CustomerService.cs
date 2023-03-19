@@ -20,10 +20,14 @@ namespace OnlineBanking.Services
         {
             return customerRepository.CreateTransaction(transaction);
         }
-
         public Dictionary<string,string> GetAccountNumberWithAmount(long id)
         {
             return customerRepository.GetAccountNumberWithAmount(id);
+        }
+
+        public UserDetail GetCustomerDetailsById(long id)
+        {
+            return customerRepository.GetCustomerDetailsById(id);
         }
     }
 }

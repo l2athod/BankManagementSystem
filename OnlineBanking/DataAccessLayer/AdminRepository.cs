@@ -77,11 +77,10 @@ namespace OnlineBanking.DataAccessLayer
                 sqlCommand.Parameters.AddWithValue("@state", customer.State);
                 sqlCommand.Parameters.AddWithValue("@pinCode",customer.PinCode);
                 sqlCommand.Parameters.AddWithValue("@gender", customer.Gender);
-                sqlCommand.Parameters.AddWithValue("@phoneNo", Convert.ToInt64(customer.PhoneNo));
+                sqlCommand.Parameters.AddWithValue("@phoneNo", Convert.ToInt64(customer.PhoneNo));  
                 sqlCommand.Parameters.AddWithValue("@email", customer.Email);
                 sqlCommand.Parameters.AddWithValue("@accountId", customer.AccountId);
-                sqlCommand.Parameters.AddWithValue("@roleId", customer.RoleId);
-
+                
                 sqlCommand.ExecuteNonQuery();
                 sqlConnection.Close();
                 return true;
@@ -127,7 +126,7 @@ namespace OnlineBanking.DataAccessLayer
                 throw;
             }
         }
-        public bool DeleteCustomer(long id)
+        public bool DeleteCustomer(long? id)
         {
             try
             {

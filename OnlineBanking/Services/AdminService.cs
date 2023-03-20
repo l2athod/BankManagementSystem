@@ -23,7 +23,7 @@ namespace OnlineBanking.Services
         {
             return customerRepository.GetCustomerById(id);
         }
-        public bool DeleteCustomer(long id)
+        public bool DeleteCustomer(long? id)
         {
             return customerRepository.DeleteCustomer(id);
         }

@@ -7,7 +7,7 @@ namespace OnlineBanking.Models
     public class Customer
     {
         [Key]
-        public long CustomerId { get; set; }
+        public long? CustomerId { get; set; }
         [Required]
         public string FirstName { get; set; } = null!;
         [Required]
@@ -23,16 +23,11 @@ namespace OnlineBanking.Models
         [RegularExpression(@"^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$", ErrorMessage = "Invalid phone number")]
         public string? PhoneNo { get; set; }
         [Required(ErrorMessage = "Email address is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
         public string Email { get; set; } = null!;
         [Display(Name = "Account")]
         public long AccountId { get; set; }
-        //[ForeignKey("AccountId")]
-        //public virtual Account Account { get; set; }
-
         [Display(Name = "Role")]
-        public int RoleId { get; set; }
-        //[ForeignKey("role")]
-        //public virtual Role role { get; set; }
+        public int? RoleId { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace OnlineBanking.Controllers
         public IActionResult CustomerDetails()
         {
             List<Customer> list = adminService.GetCustomers();
-            return View(list);
+            return View(list);  
         }
         [HttpGet]
         public IActionResult CreateUpdateCustomer(long id) 

@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OnlineBanking</title>
+    <title>Online Bank</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/OnlineBanking.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
     <link rel="stylesheet" href="~/css/codepen.css" />
 
 </head>
@@ -30,9 +29,9 @@
                             <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="CustomerDetails">Customer Details</a>
                         </li>
 
-                        @* <li class="nav-item"> *@
-                        @*     <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AccountDetails">AccountDetails</a> *@
-                        @* </li> *@
+                        <li class="nav-item">
+                             <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Accounts">Account Details</a> 
+                        </li>
                         
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="TransactionHistory">Transaction History</a>
@@ -55,7 +54,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

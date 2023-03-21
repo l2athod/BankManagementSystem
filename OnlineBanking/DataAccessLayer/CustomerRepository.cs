@@ -34,6 +34,7 @@ namespace OnlineBanking.DataAccessLayer
                         transaction.TransferAmount = (decimal)sqlDataReader[2];
                         transaction.DateOfTransaction = (DateTime)sqlDataReader[3];
                         transaction.FromAccountNumber = (string)sqlDataReader[4];
+                        transaction.Balance = (decimal)sqlDataReader[5];
                         transactions.Add(transaction);
                     }
                     sqlConnection.Close();
@@ -122,7 +123,7 @@ namespace OnlineBanking.DataAccessLayer
                         user.UserId = id;
                         user.FirstName = (string)reader[0];
                         user.LastName = (string)reader[1];
-                        user.DateOfBirth = (DateTime)reader[2];
+                        user.DateOfBirth = ((DateTime)reader[2]).ToString("dd-mm-yyyy");
                         user.Address = (string)reader[3];
                         user.City = (string)reader[4];
                         user.State = (string)reader[5];

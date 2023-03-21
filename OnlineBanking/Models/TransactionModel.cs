@@ -23,6 +23,7 @@ namespace OnlineBanking.Models
         [Required(ErrorMessage = "ToAccountNumber Required")]
         [RegularExpression(@"^\d{11}$", ErrorMessage = "ToAccountNumber must have 11 digits")]
         public string ToAccountNumber { get; set; } = null!;
+        public decimal Balance { get; set; }
         public bool IsActive { get; set; }
     }
 }

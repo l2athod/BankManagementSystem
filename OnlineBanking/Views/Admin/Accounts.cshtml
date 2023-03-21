@@ -1,0 +1,129 @@
+﻿@model IEnumerable<OnlineBanking.Models.AccountModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br>
+<br>
+
+
+
+<h2 class="d-inline">Customer Accounts</h2>
+<div class="float-end d-inline">
+    <a asp-controller="Admin" asp-action="Create"  class="btn btn-primary" data-toggle="modal">  <i class="bi bi-person-plus" data-toggle="tooltip"> </i> Create Account </a>
+</div>
+
+@if (@TempData["InfoMessage"] != null){
+
+    <div class ="alert alert-info">
+       <strong>Info ! </strong> @TempData["InfoMessage"]
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close>">
+           <span>&times;</span>
+       </button>
+    </div>
+
+}
+
+else if (@TempData["SuccessMessage"] != null)
+{
+
+    <div class ="alert alert-success">
+        <strong>Success ! </strong> @TempData["SuccessMessage"]
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close>">
+           <span>&times;</span>
+       </button>
+    </div>
+
+}
+
+else if (@TempData["ErrorMessage"] != null)
+{
+
+    <div class="alert alert-danger">
+        <strong>Error ! </strong> @TempData["ErrorMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close>">
+            <span>&times;</span>
+        </button>
+    </div>
+
+}
+
+
+<table class="table mt-4 table-bordered border-dark ">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfCreation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IFSCCode)
+            </th>
+
+            <th>
+                Action
+            </th>
+
+           
+        </tr>
+    </thead>
+    
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountBalance)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.DateOfCreation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IFSCCode)
+            </td>
+
+            <td>
+                <a asp-controller="Admin" asp-action="Edit" asp-route-id="@item.AccountId" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                <a asp-controller="Admin" asp-action="Delete" asp-route-id="@item.AccountId" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+            </td>
+        </tr>
+} 
+    </tbody>
+</table>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Activate tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    </script>
+}

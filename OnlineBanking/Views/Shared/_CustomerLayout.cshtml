@@ -6,12 +6,8 @@
     <title>OnlineBank</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/OnlineBanking.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/codepen.css" />
 
 
 </head>
@@ -29,11 +25,6 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="CustomerTransactionsById">Transaction History</a>
                         </li>
-
-
-                        @* <li class="nav-item"> *@
-                        @*     <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="AccountDetails">Account Detail</a> *@
-                        @* </li> *@
 
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="CreateTransaction">Transaction</a>
@@ -53,6 +44,7 @@
             @RenderBody()
         </main>
     </div>
+
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

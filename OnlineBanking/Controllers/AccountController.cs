@@ -34,7 +34,7 @@ namespace OnlineBanking.Controllers
                 ModelState.AddModelError(String.Empty, "Please enter Username and Password");
                 return View();
             }
-            Dictionary<string, string> userDetails = _accountService.Login(login);
+            Dictionary<string, string> userDetails = _accountService.Login(HttpContext,login);
             if (userDetails.Count > 0)
             {
                 HttpContext.Session.SetString("UserName", login.UserName);
@@ -55,38 +55,38 @@ namespace OnlineBanking.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Register(Login login)
-        {
-            if (String.IsNullOrEmpty(login.UserName) || String.IsNullOrEmpty(login.Password))
-            {
-                ModelState.AddModelError(String.Empty, "Please enter Username and Password");
-                return View();
-            }
-            Dictionary<string, string> userDetails = _accountService.Login(login);
-            if (userDetails.Count > 0)
-            {
-                HttpContext.Session.SetString("UserName", login.UserName);
-                if (userDetails["Role"] == "Admin")
-                {
-                    return RedirectToAction("Home", "Admin", userDetails);
-                }
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Register(Login login)
+        //{
+        //    if (String.IsNullOrEmpty(login.UserName) || String.IsNullOrEmpty(login.Password))
+        //    {
+        //        ModelState.AddModelError(String.Empty, "Please enter Username and Password");
+        //        return View();
+        //    }
+        //    Dictionary<string, string> userDetails = _accountService.Login(login);
+        //    if (userDetails.Count > 0)
+        //    {
+        //        HttpContext.Session.SetString("UserName", login.UserName);
+        //        if (userDetails["Role"] == "Admin")
+        //        {
+        //            return RedirectToAction("Home", "Admin", userDetails);
+        //        }
 
-                else if (userDetails["Role"] == "Customer")
-                {
-                    return RedirectToAction("Home", "Customer", userDetails);
-                }
-            }
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            ViewBag.ErrorMessage = "Invalid username or password.";
-            return View();
-        }
+        //        else if (userDetails["Role"] == "Customer")
+        //        {
+        //            return RedirectToAction("Home", "Customer", userDetails);
+        //        }
+        //    }
+        //    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        //    ViewBag.ErrorMessage = "Invalid username or password.";
+        //    return View();
+        //}
 
         [HttpGet]  
         public IActionResult Logout()
@@ -96,4 +96,6 @@ namespace OnlineBanking.Controllers
             return RedirectToAction("Login","Account");  
         }  
     }
+
 }
+

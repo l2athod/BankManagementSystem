@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Data.SqlClient;
 using OnlineBanking.Models;
+using System.Data;
 using System.Security.Claims;
 
 namespace OnlineBanking.DataAccessLayer
@@ -15,7 +16,7 @@ namespace OnlineBanking.DataAccessLayer
             _connectionString = configuration.GetConnectionString("DbConnection");
         }
 
-        public Dictionary<string,string> Login(Login login)
+        public Dictionary<string,string> Login(HttpContext httpContext,Login login)
         {
             Dictionary<string, string> UserDetails = new Dictionary<string, string>();
             try
@@ -32,6 +33,8 @@ namespace OnlineBanking.DataAccessLayer
                     int userId = (int)sqlDataReader[0];
                     string roleType = (string)sqlDataReader[1];
                     string loggerId = sqlDataReader[2].ToString();
+
+                    httpContext.Session.SetString("UserId", userId.ToString());
                     UserDetails["UserId"] = userId.ToString();
                     UserDetails["UserRole"] = roleType;
                     UserDetails["LoggerId"] = loggerId;
@@ -44,5 +47,7 @@ namespace OnlineBanking.DataAccessLayer
 
             return UserDetails;
         }
+
+
     }
 }

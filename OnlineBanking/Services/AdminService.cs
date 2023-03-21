@@ -31,5 +31,33 @@ namespace OnlineBanking.Services
         {
             return customerRepository.GetTransactions();
         }
+        public UserDetail GetAdminDetailsById(long id)
+        {
+            return customerRepository.GetAdminDetailsById(id);
+        }
+
+        public List<AccountModel> GetAllAccountList()
+        {
+            return customerRepository.GetAllAccountList();
+        }
+
+        public bool InsertAccountModel(AccountModel model)
+        {
+            return customerRepository.InsertAccountModel(model);
+        }
+
+        public List<AccountModel> AccountId(int AccountId)
+        {
+            return customerRepository.AccountId(AccountId);
+        }
+
+        public void UpdateAccountModel(AccountModel accountModel)
+        {
+            customerRepository.UpdateAccountModel(accountModel);
+        }
+        public void DeleteAccount(string Id)
+        {
+            customerRepository.DeleteAccount(Id);
+        }
     }
 }

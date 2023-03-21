@@ -4,46 +4,50 @@
     ViewData["Title"] = "TransactionHistory";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+<br>
+<br>
 <h2>TransactionHistory</h2>
-<div class="container">
-    <div class="table-wrapper">
-        <div class="table-title">
-            <div class="row">
-                <div class="col-sm-8">
-                    <h2>Transaction List</h2>
-                </div>
 
-            </div>
-        </div>
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Customer Id</th>
-                    <th>TransactionType</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>DateOfTransaction</th>
-                    <th>AccountNumber</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.CustomerId</td>
-                        <td>@item.TransactionType</td>
-                        <td>@item.Description</td>
-                        <td>@item.TransferAmount</td>
-                        <td>@item.DateOfTransaction  </td>
-                        <td>@item.FromAccountNumber  </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
 
+
+<table class="table mt-4 table-bordered border-dark ">
+    <thead class="table-dark">
+        <tr>
+            <th>TransactionType</th>
+            <th>Description</th>
+            <th>Transaction Type</th>
+            <th>Amount</th>
+            <th>DateOfTransaction</th>
+            <th>AccountNumber</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransferAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfTransaction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromAccountNumber)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @section scripts {
     <script>

@@ -7,8 +7,9 @@ namespace OnlineBanking.Models
     {
         [Key]
         public int AccountId { get; set; }
+
         [Required]
-        [StringLength(11)]
+        [RegularExpression(@"^(\d{11})$", ErrorMessage = "Account number must be 11 digits")]
         public string AccountNumber { get; set; } = null!;
         [Required]
         public double AccountBalance { get; set; }

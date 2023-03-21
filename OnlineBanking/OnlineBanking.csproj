@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DataAccessLayer\2hpsbz5l.2xk~" />
+    <None Remove="DataAccessLayer\AdminRepository.cs~RF6cb691.TMP" />
     <None Remove="Models\Registration.cs~RF6c0a05.TMP" />
     <None Remove="Views\Customer\CreateTransaction.cshtml~RFb2ea8d.TMP" />
     <None Remove="Views\Shared\2rcc5bft.oe1~" />

@@ -7,7 +7,7 @@ namespace OnlineBanking.Models
     public class Customer
     {
         [Key]
-        public long? CustomerId { get; set; }
+        public long CustomerId { get; set; }
         [Required]
         public string FirstName { get; set; } = null!;
         [Required]
@@ -25,8 +25,10 @@ namespace OnlineBanking.Models
         [Required(ErrorMessage = "Email address is required")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
         public string Email { get; set; } = null!;
-        [Display(Name = "Account")]
-        public long AccountId { get; set; }
+
+        [Required]
+        [RegularExpression(@"^(\d{11})$", ErrorMessage = "Account number must be 11 digits")]
+        public string AccountNumber { get; set; }
         [Display(Name = "Role")]
         public int? RoleId { get; set; }
     }

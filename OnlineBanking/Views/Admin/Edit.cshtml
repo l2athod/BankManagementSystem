@@ -1,0 +1,78 @@
+﻿@model OnlineBanking.Models.AccountModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h2>Edit</h2>
+
+@if (TempData["Errormessage"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Error ! </strong> @TempData["ErrorMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close>">
+            <span>&times;</span>
+        </button>
+    </div>
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AccountId" class="control-label"></label>
+                <input asp-for="AccountId" class="form-control" required />
+                <span asp-validation-for="AccountId" class="text-danger"> </span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountNumber" class="control-label"></label>
+                <input asp-for="AccountNumber" class="form-control" required />
+                <span asp-validation-for="AccountNumber" class="text-danger"> </span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AccountBalance" class="control-label"></label>
+                <input asp-for="AccountBalance" class="form-control" required />
+                <span asp-validation-for="AccountBalance" class="text-danger"> </span>
+            </div>
+
+           @* <div class="form-group">
+                <label asp-for="DateOfCreation" class="control-label"></label>
+                <input asp-for="DateOfCreation" class="form-control" />
+                <span asp-validation-for="DateOfCreation" class="text-danger"> </span>
+            </div>*@
+
+            <div class="form-group">
+                <label asp-for="AccountType" class="control-label"></label>
+                <input asp-for="AccountType" class="form-control" required />
+                <span asp-validation-for="AccountType" class="text-danger"> </span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Branch" class="control-label"></label>
+                <input asp-for="Branch" class="form-control" required />
+                <span asp-validation-for="Branch" class="text-danger"> </span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IFSCCode" class="control-label"></label>
+                <input asp-for="IFSCCode" class="form-control" required/>
+                <span asp-validation-for="IFSCCode" class="text-danger"> </span>
+            </div>
+
+            <div class="form-group"><input type="submit" value="update" class="btn btn-success" /></div>
+        </form>
+    </div>
+</div>
+<div><a asp-action="Accounts">Back to List</a></div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

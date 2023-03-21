@@ -8,69 +8,75 @@
 
 @*@context.HttpContext.Session.GetString("keyName")*@
 
+<br>
+<br>
+
 <h2>Customer Details</h2>
 <div class="row">
     <div class="col-md-4">
         <form asp-controller="Admin" asp-action="CreateUpdateCustomer" method="post">
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
+            
+            <input type="hidden" asp-for="CustomerId" />
+
+            <div class="form-group pb-3">
+                <label asp-for="FirstName" class="control-label pb-2"></label>
                 <input type="text" asp-for="FirstName" class="form-control" required />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
+            <div class="form-group pb-3">
+                <label asp-for="LastName" class="control-label pb-2"></label>
                 <input type="text" asp-for="LastName" class="form-control" required />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
+            <div class="form-group pb-3">
+                <label asp-for="DateOfBirth" class="control-label pb-2"></label>
                 <input asp-for="DateOfBirth" class="form-control" required />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="CustomerId" />
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
+
+            <div class="form-group  pb-3">
+                <label asp-for="Address" class="control-label pb-2"></label>
                 <input type="text" asp-for="Address" class="form-control" required />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input type="text" asp-for="City" class="form-control" required />
+            <div class="form-group pb-3" >
+                <label asp-for="City" class="control-label pb-2"></label>
+                <input type="text" asp-for="City" class="form-control " required />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="State" class="control-label"></label>
+            <div class="form-group  pb-3">
+                <label asp-for="State" class="control-label  pb-2"></label>
                 <input type="text" asp-for="State" class="form-control" required />
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="PinCode" class="control-label"></label>
-                <input type="text" asp-for="PinCode" class="form-control" required />
+            <div class="form-group  pb-3">
+                <label asp-for="PinCode" class="control-label pb-2"></label>
+                <input type="text" asp-for="PinCode" class="form-control " required />
                 <span asp-validation-for="PinCode" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <input type="text" asp-for="Gender" class="form-control" required />
+            <div class="form-group pb-3">
+                <label asp-for="Gender" class="control-label pb-2"></label>
+                <input type="text" asp-for="Gender" class="form-control " required />
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PhoneNo" class="control-label"></label>
-                <input type="text" asp-for="PhoneNo" class="form-control" required />
+            <div class="form-group pb-3">
+                <label asp-for="PhoneNo" class="control-label pb-2"></label>
+                <input type="text" asp-for="PhoneNo" class="form-control " required />
                 <span asp-validation-for="PhoneNo" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
+            <div class="form-group pb-3">
+                <label asp-for="Email" class="control-label  pb-2"></label>
                 <input type="email" asp-for="Email" class="form-control" required />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AccountId" class="control-label"></label>
-                <input type="text" asp-for="AccountId" class="form-control" required />
-                <span asp-validation-for="AccountId" class="text-danger"></span>
+            <div class="form-group pb-3">
+                <label asp-for="AccountNumber" class="control-label pb-2"></label>
+                <input type="tel" maxlength="11" asp-for="AccountNumber " class="form-control " required  readonly/>
+                <span asp-validation-for="AccountNumber" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group pb-3">
                 <input type="submit" value="Save" class="btn btn-info" />
             </div>
         </form>

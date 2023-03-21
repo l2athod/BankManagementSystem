@@ -42,7 +42,7 @@ namespace OnlineBanking.DataAccessLayer
                         Gender = (string)sqlDataReader[8],
                         PhoneNo = sqlDataReader[9].ToString(),
                         Email = (string)sqlDataReader[10],
-                        AccountId = (long)sqlDataReader[11],
+                        AccountNumber = (string)sqlDataReader[11],
                         RoleId = (int)sqlDataReader[12]
                     };
                     list.Add(customer);
@@ -79,8 +79,9 @@ namespace OnlineBanking.DataAccessLayer
                 sqlCommand.Parameters.AddWithValue("@gender", customer.Gender);
                 sqlCommand.Parameters.AddWithValue("@phoneNo", Convert.ToInt64(customer.PhoneNo));  
                 sqlCommand.Parameters.AddWithValue("@email", customer.Email);
-                sqlCommand.Parameters.AddWithValue("@accountId", customer.AccountId);
+                sqlCommand.Parameters.AddWithValue("@accountNumber", customer.AccountNumber.ToString());
                 
+
                 sqlCommand.ExecuteNonQuery();
                 sqlConnection.Close();
                 return true;
@@ -89,7 +90,7 @@ namespace OnlineBanking.DataAccessLayer
             {
                 return false;
             }
-        }
+        }   
         public Customer GetCustomerById(long id)
         {
             try
@@ -115,7 +116,7 @@ namespace OnlineBanking.DataAccessLayer
                         customer.Gender = (string)sqlDataReader[8];
                         customer.PhoneNo = sqlDataReader[9].ToString();
                         customer.Email = (string)sqlDataReader[10];
-                        customer.AccountId = (long)sqlDataReader[11];
+                        customer.AccountNumber = (string)sqlDataReader[11];
                         customer.RoleId = (int)sqlDataReader[12];
                     }
                 }
@@ -181,5 +182,210 @@ namespace OnlineBanking.DataAccessLayer
             }
         }
 
+        public UserDetail GetAdminDetailsById(long id)
+        {
+            try
+            {
+                UserDetail user = new UserDetail();
+                using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("sp_GetAdminDetailsById", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@adminId", id);
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        user.UserId = id;
+                        user.FirstName = (string)reader[0];
+                        user.LastName = (string)reader[1];
+                        user.DateOfBirth = ((DateTime)reader[2]).ToString("dd-mm-yyyy");
+                        user.Address = (string)reader[3];
+                        user.City = (string)reader[4];
+                        user.State = (string)reader[5];
+                        user.PinCode = (string)reader[6];
+                        user.Gender = (string)reader[7];
+                        user.PhoneNo = (long)reader[8];
+                        user.Email = (string)reader[9];
+
+                        if (user.Gender == "M") { user.Gender = "Male"; }
+                        else { user.Gender = "Female"; }
+                    }
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public List<AccountModel> GetAllAccountList()
+        {
+            List<AccountModel> accountModels = new List<AccountModel>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+
+                SqlCommand command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "sp_GetAllAccountList";
+                SqlDataAdapter SqlDA = new SqlDataAdapter(command);
+                DataTable dtAccount = new DataTable();
+
+                connection.Open();
+                SqlDA.Fill(dtAccount);
+
+
+
+                foreach (DataRow dr in dtAccount.Rows)
+                {
+                    accountModels.Add(new AccountModel
+                    {
+                        CustomerName = (string)dr["CustomerName"],
+                        AccountId = Convert.ToInt64(dr["AccountId"]),
+                        AccountNumber = (string)dr["AccountNumber"],
+                        AccountBalance = Convert.ToDecimal(dr["AccountBalance"]),
+                        DateOfCreation = (DateTime)(dr["DateofCreation"]),
+                        AccountType = dr["AccountType"].ToString(),
+                        Branch = (string)dr["Branch"],
+                        IFSCCode = dr["IFSCCode"].ToString(),
+                        Status = (bool)dr["Status"]
+                    });
+                }
+                connection.Close();
+            }
+
+            return accountModels;
+        }
+
+
+
+
+        //Insert
+        public bool InsertAccountModel(AccountModel accountModel)
+        {
+            int id = 0;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand("sp_InsertAccount", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AccountNumber", accountModel.AccountNumber);
+                command.Parameters.AddWithValue("@AccountBalance", accountModel.AccountBalance);
+                command.Parameters.AddWithValue("@DateOfCreation", accountModel.DateOfCreation.ToString("yyyy-MM-dd hh:mm:ss"));
+                command.Parameters.AddWithValue("@AccountType", accountModel.AccountType);
+                command.Parameters.AddWithValue("@Branch", accountModel.Branch);
+                command.Parameters.AddWithValue("@IFSCCode", accountModel.IFSCCode);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                id++;
+                connection.Close();
+                {
+                    if (id > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+        //Get product 
+
+        public List<AccountModel> AccountId(int AccountId)
+        {
+            List<AccountModel> accountModels = new List<AccountModel>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+
+                SqlCommand command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "sp_GetAccountById";
+                command.Parameters.AddWithValue("@AccountId", AccountId);
+
+                SqlDataAdapter SqlDA = new SqlDataAdapter(command);
+                DataTable dtAccount = new DataTable();
+
+                connection.Open();
+                SqlDA.Fill(dtAccount);
+                connection.Close();
+
+                foreach (DataRow dr in dtAccount.Rows)
+                {
+                    accountModels.Add(new AccountModel()
+                    {
+                        AccountId = (int)Convert.ToInt64(dr["AccountId"]),
+                        AccountNumber = ((string)dr["AccountNumber"]),
+                        AccountBalance = Convert.ToDecimal(dr["AccountBalance"]),
+                        DateOfCreation = (DateTime)(dr["DateofCreation"]),
+                        AccountType = dr["AccountType"].ToString(),
+                        Branch = (string)dr["Branch"],
+                        IFSCCode = dr["IFSCCode"].ToString(),
+                    });
+
+                }
+                return accountModels;
+            }
+        }
+
+        //Update
+        public void UpdateAccountModel(AccountModel accountModel)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand("sp_UpdateAccount", connection);
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AccountId", accountModel.AccountId);
+                command.Parameters.AddWithValue("@AccountNumber", accountModel.AccountNumber);
+                command.Parameters.AddWithValue("@AccountBalance", accountModel.AccountBalance);
+                /*command.Parameters.AddWithValue("@DateOfCreation", accountModel.DateOfCreation.ToString("yyyy-MM-dd hh:mm:ss"));*/
+                command.Parameters.AddWithValue("@AccountType", accountModel.AccountType);
+                command.Parameters.AddWithValue("@Branch", accountModel.Branch);
+                command.Parameters.AddWithValue("@IFSCCode", accountModel.IFSCCode);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        //Delete data
+        public void DeleteAccount(string Id)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("sp_DeleteAccount", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@AccountId", Id);
+                    SqlDataReader reader = command.ExecuteReader();
+                    reader.Close();
+                }
+                connection.Close();
+            }
+        }
     }
 }

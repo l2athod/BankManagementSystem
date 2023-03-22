@@ -123,7 +123,7 @@ namespace OnlineBanking.DataAccessLayer
                         user.UserId = id;
                         user.FirstName = (string)reader[0];
                         user.LastName = (string)reader[1];
-                        user.DateOfBirth = ((DateTime)reader[2]).ToString("dd-mm-yyyy");
+                        user.DateOfBirth = ((DateTime)reader[2]).ToString("dd-MM-yyyy");
                         user.Address = (string)reader[3];
                         user.City = (string)reader[4];
                         user.State = (string)reader[5];

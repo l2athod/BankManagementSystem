@@ -12,38 +12,35 @@
 
 <table class="table mt-4 table-bordered border-dark ">
     <thead class="table-dark">
-        <tr>
-            <th>TransactionType</th>
-            <th>Description</th>
-            <th>Transaction Type</th>
-            <th>Amount</th>
-            <th>DateOfTransaction</th>
-            <th>AccountNumber</th>
+        <tr class="row">
+            <td class="col-2">Account</td>
+            <td class="col-2">Description</td>
+            <td class="col-2">Transaction Type</td>
+            <td class="col-2">Amount</td>
+            <td class="col-4">DateOfTransaction</td>
         </tr>
     </thead>
 
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TransactionType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TransactionType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TransferAmount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateOfTransaction)
-                </td>
-                <td>
+            <tr class="row">
+                <td class="col-2">
                     @Html.DisplayFor(modelItem => item.FromAccountNumber)
                 </td>
+                <td class="col-2">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="col-2">
+                    @Html.DisplayFor(modelItem => item.TransactionType)
+                </td>
+                <td class="col-2">
+                    @Html.DisplayFor(modelItem => item.TransferAmount)
+                </td>
+                <td class="col-4">
+                    @Html.DisplayFor(modelItem => item.DateOfTransaction)
+                </td>
+
             </tr>
         }
     </tbody>

@@ -10,7 +10,7 @@ namespace OnlineBanking.Utilities
             var role = context.HttpContext.Session.GetString("UserRole");
             if (context.HttpContext.Session.GetString("UserRole") != "Admin")
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "Controller", "Account" }, { "Action", "Login" } } );
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "Controller", "Customer" }, { "Action", "Home" } } );
             }
         }
     }

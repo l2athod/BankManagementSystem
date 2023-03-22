@@ -18,10 +18,12 @@ namespace OnlineBanking.Models
         public long CustomerId { get; set; }
 
         [Required(ErrorMessage = "ToAccountNumber Required")]
+        [Display(Name = "Transfer Account")]
         public string FromAccountNumber { get; set; } = null!;
 
         [Required(ErrorMessage = "ToAccountNumber Required")]
         [RegularExpression(@"^\d{11}$", ErrorMessage = "ToAccountNumber must have 11 digits")]
+        [Display(Name = "Benificery Account")]
         public string ToAccountNumber { get; set; } = null!;
         public decimal Balance { get; set; }
         public bool IsActive { get; set; }

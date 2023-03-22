@@ -14,8 +14,8 @@ namespace OnlineBanking.Utilities
             {
                 context.Result = new RedirectToRouteResult(
                 new RouteValueDictionary{
-                     {"Controller","Account"},
-                     {"Action","Login"}
+                     {"Controller","Admin"},
+                     {"Action","Home"}
                 });
             }
         }
